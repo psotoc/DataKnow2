@@ -1,5 +1,5 @@
-#Consulta de historia de demandas
-
+# Informe Técnico — Prueba DataKnow  
+**Proyecto:** Consulta de histoia de demandas
 ---
 
 ## Explicación del caso
@@ -62,6 +62,7 @@ Crear un archivo `.env` en la raíz con:
 **OpenAiKey**
 
 git clone <URL_DEL_REPO>
+
 cd <CARPETA_DEL_REPO>
 
 python3 -m pip install -r requirements.txt
