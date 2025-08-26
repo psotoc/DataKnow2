@@ -1,0 +1,7 @@
+pandas
+openpyxl
+numpy
+faiss-cpu
+tiktoken
+python-dotenv
+openai
