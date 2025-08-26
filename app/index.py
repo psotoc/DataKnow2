@@ -1,4 +1,4 @@
-# app/build_index.py
+# app/index.py
 from __future__ import annotations
 import json, math
 from pathlib import Path
