@@ -13,11 +13,11 @@ from dataPrep import load_cases
 load_dotenv()
 client = OpenAI()
 
-# === Configuraciones básicas ===
+
 EMBED_MODEL = "text-embedding-3-small"
 CHARS_PER_CHUNK = 1800
 CHARS_OVERLAP = 200
-BATCH_SIZE = 64  # embeddings en lote (rápido y barato)
+BATCH_SIZE = 64  
 
 def chunk_text(text: str, max_chars=CHARS_PER_CHUNK, overlap=CHARS_OVERLAP):
     chunks = []
@@ -36,14 +36,14 @@ def embed_batch(texts: list[str]) -> list[list[float]]:
     return [d.embedding for d in resp.data]
 
 def main():
-    # 1) Cargar y preparar casos
+    
     df = load_cases("data/sentencias_pasadas.xlsx")
 
     docs = df["doc"].tolist()
     # Metadatos útiles para citar
     metas_base = df[["providencia","fecha","tema"]].to_dict(orient="records")
 
-    # 2) Chunks + metadatos por chunk
+   
     chunks, metas = [], []
     for i, (doc, mb) in enumerate(zip(docs, metas_base)):
         parts = chunk_text(doc)
@@ -54,7 +54,7 @@ def main():
     if not chunks:
         raise RuntimeError("No se generaron chunks. Revisa el ETL.")
 
-    # 3) Embeddings en lotes
+   
     vectors = []
     total = len(chunks)
     steps = math.ceil(total / BATCH_SIZE)
@@ -66,18 +66,18 @@ def main():
         print(f"  Lote {i//BATCH_SIZE + 1}/{steps} listo")
 
     X = np.array(vectors, dtype="float32")
-    faiss.normalize_L2(X)  # para similitud coseno con IndexFlatIP
+    faiss.normalize_L2(X)  
 
-    # 4) Crear índice FAISS (producto interno = coseno)
+   
     index = faiss.IndexFlatIP(X.shape[1])
     index.add(X)
     print("Index ntotal:", index.ntotal)
 
-    # 5) Guardar artefactos
+   
     faiss.write_index(index, "faiss.index")
     with open("meta.json", "w", encoding="utf-8") as f:
         json.dump(metas, f, ensure_ascii=False)
-    # Guardamos también los casos limpios (útil para inspección o UI)
+    
     df.to_json("cases.json", orient="records", force_ascii=False)
 
     print("✅ Guardado: faiss.index, meta.json, cases.json")
