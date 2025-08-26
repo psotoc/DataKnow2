@@ -12,7 +12,7 @@ El objetivo del PoC es **automatizar** esa consulta con un enfoque **RAG** (Retr
 - Dataset principal: `data/sentencias_pasadas.xlsx` (síntesis del caso, sentencia y metadatos).
 - Tono **coloquial**, sin jerga legal innecesaria.
 - Agente de OpenAi utilizado
-- 
+  
 ---
 
 ## Formas para resolver el caso y opción tomada
@@ -45,7 +45,7 @@ El objetivo del PoC es **automatizar** esa consulta con un enfoque **RAG** (Retr
 
 ---
 
-## Apreciaciones y comentarios (opcional)
+## Apreciaciones y comentarios 
 RAG ofrece una solución **económica** y **actualizable** para este dominio.
 
 ---
