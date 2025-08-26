@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+*.env
+data/cases_clean.csv
+data/cases_clean.json
+.DS_Store
